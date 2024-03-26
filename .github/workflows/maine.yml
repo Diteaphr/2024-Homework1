@@ -4,7 +4,17 @@ run-name: Homework 1 Running by ${{ github.actor }}
 on:
   push:
     branches:
-      - "**"
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+      - run: dotnet --version
+      - run: dotnet build
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -37,3 +47,4 @@ jobs:
           cd hw1
           forge test --mt test_check -vvv
         id: test
+
